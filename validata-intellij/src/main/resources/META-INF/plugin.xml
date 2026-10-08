@@ -1,0 +1,60 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- id / name / version / description / vendor / idea-version are patched from build.gradle.kts -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+    <depends>org.jetbrains.kotlin</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- PsiReferenceContributorEP maps XML attr "implementation" → field implementationClass -->
+        <psi.referenceContributor
+                language="kotlin"
+                implementation="io.ghaylan.validata.intellij.editor.reference.PropertyRefReferenceContributor"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.PropertyRefAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ConstraintSubjectTypeAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ConstraintCompositionAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ConstraintMetadataUnresolvedAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ConstraintLiteralAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ValidatableAnnotator"/>
+        <annotator
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.annotator.ApiErrorCatalogAnnotator"/>
+        <multiHostInjector
+                implementation="io.ghaylan.validata.intellij.editor.inject.ConstraintRegexLanguageInjector"/>
+        <completion.contributor
+                language="kotlin"
+                implementationClass="io.ghaylan.validata.intellij.editor.completion.PropertyRefCompletionContributor"/>
+        <!-- order=first so we override SkipAutopopupInStrings and allow letter-by-letter popup -->
+        <completion.confidence
+                language="kotlin"
+                order="first"
+                implementationClass="io.ghaylan.validata.intellij.editor.completion.PropertyRefCompletionConfidence"/>
+        <typedHandler
+                implementation="io.ghaylan.validata.intellij.editor.inject.PropertyRefTypedHandler"/>
+        <additionalTextAttributes
+                scheme="Default"
+                file="colorSchemes/GhaylanValidationDefault.xml"/>
+        <additionalTextAttributes
+                scheme="Darcula"
+                file="colorSchemes/GhaylanValidationDarcula.xml"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <!-- Suppresses local IDE inspection while keeping Marketplace Verifier happy -->
+        <!--noinspection ExtensionPointBeanFetch-->
+        <supportsKotlinPluginMode mode="K1_AND_K2"/>
+    </extensions>
+
+</idea-plugin>

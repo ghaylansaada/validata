@@ -1,0 +1,3 @@
+io.ghaylan.validata.config.ValidationConfig
+io.ghaylan.validata.config.WebMvcValidationAutoConfiguration
+io.ghaylan.validata.config.ValidataWebMvcConfiguration

@@ -1,0 +1,3 @@
+io.ghaylan.validata.processor.ConstraintMetadataProcessorProvider
+io.ghaylan.validata.processor.SchemaProcessorProvider
+io.ghaylan.validata.processor.ConstraintCatalogProcessorProvider

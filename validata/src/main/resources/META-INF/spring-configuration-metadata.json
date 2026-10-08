@@ -1,0 +1,32 @@
+{
+  "groups": [
+	{
+	  "name": "validata.limits",
+	  "type": "io.ghaylan.validata.config.ValidataLimitsProperties",
+	  "sourceType": "io.ghaylan.validata.config.ValidataLimitsProperties"
+	}
+  ],
+  "properties": [
+	{
+	  "name": "validata.limits.max-depth",
+	  "type": "java.lang.Integer",
+	  "description": "Maximum object-graph depth the engine walks in one validation run. Exceeding this is a validation failure, not truncation.",
+	  "sourceType": "io.ghaylan.validata.config.ValidataLimitsProperties",
+	  "defaultValue": 32
+	},
+	{
+	  "name": "validata.limits.max-elements-per-container",
+	  "type": "java.lang.Integer",
+	  "description": "Maximum entries traversed in a single collection, array, or map before that container is rejected.",
+	  "sourceType": "io.ghaylan.validata.config.ValidataLimitsProperties",
+	  "defaultValue": 10000
+	},
+	{
+	  "name": "validata.limits.max-errors",
+	  "type": "java.lang.Integer",
+	  "description": "Maximum constraint violations collected before the run stops. The request is already rejected when this cap is reached.",
+	  "sourceType": "io.ghaylan.validata.config.ValidataLimitsProperties",
+	  "defaultValue": 200
+	}
+  ]
+}

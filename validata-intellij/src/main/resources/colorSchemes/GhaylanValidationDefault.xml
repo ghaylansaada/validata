@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Amber temporals only.
+  Numbers inherit IDE NUMBER; enums inherit IDE CONSTANT; property refs inherit IDE INSTANCE_FIELD.
+  Plain strings stay green; RegExp unchanged.
+-->
+<list>
+    <option name="GHAYLAN_CONSTRAINT_TEMPORAL">
+        <value>
+            <option name="FOREGROUND" value="E65100"/>
+        </value>
+    </option>
+</list>

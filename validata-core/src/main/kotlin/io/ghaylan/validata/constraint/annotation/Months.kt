@@ -1,0 +1,86 @@
+/*
+ * Copyright 2026 Ghaylan Saada
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.ghaylan.validata.constraint.annotation
+
+import io.ghaylan.validata.constraint.Constraint
+import io.ghaylan.validata.constraint.ConstraintArg
+import io.ghaylan.validata.constraint.ConstraintGroups
+import io.ghaylan.validata.constraint.ConstraintMessage
+import io.ghaylan.validata.constraint.validator.temporal.months.MonthsValidator
+import io.ghaylan.validata.groups.OnDefault
+import io.ghaylan.validata.model.ConstraintErrorCode
+import io.ghaylan.validata.schema.Validate
+import io.ghaylan.validata.schema.ref.ConstraintArgKind
+import io.ghaylan.validata.schema.ref.ConstraintArgTarget
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Month
+import java.time.YearMonth
+import java.time.temporal.ChronoField
+import java.time.temporal.Temporal
+import kotlin.reflect.KClass
+
+/**
+ * Requires the calendar month of a date-aware temporal to be one of [months], or **not** one of
+ * [months] when [negated] is `true`.
+ *
+ * Applies to any [Temporal] that supports [ChronoField.MONTH_OF_YEAR] (e.g. [LocalDate],
+ * [YearMonth]). Time-only temporals (e.g. [LocalTime]) skip. `null` values are skipped;
+ * combine with [Required] when the field must also be present.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * @field:Months([Month.JUNE, Month.JULY, Month.AUGUST])
+ * val seasonStart: LocalDate
+ *
+ * @field:Months(months = [Month.FEBRUARY], negated = true)
+ * val notFebruary: LocalDate
+ * ```
+ *
+ * On failure, reports:
+ * - [ConstraintErrorCode.TEMPORAL_MONTH_NOT_ALLOWED]
+ *
+ * @property months Months (non-empty). Allow-list when [negated] is `false`; deny-list when
+ *    [negated] is `true`.
+ * @property negated When `true`, the month must **not** be in [months]. Defaults to `false`.
+ * @property message Error text reported on failure. Blank `""` falls back to system default.
+ * @property groups Marker classes for grouping rules across endpoints (e.g. Create vs Update) via
+ *    [Validate]. Defaults to `[OnDefault::class]`.
+ * 
+ * @author Ghaylan Saada
+ */
+@MustBeDocumented
+@Constraint(validatedBy = [MonthsValidator::class])
+@Retention(AnnotationRetention.RUNTIME)
+@Target(
+	AnnotationTarget.TYPE,
+	AnnotationTarget.FIELD,
+	AnnotationTarget.PROPERTY_GETTER,
+	AnnotationTarget.VALUE_PARAMETER,
+	AnnotationTarget.ANNOTATION_CLASS)
+annotation class Months(
+	@ConstraintArg(ConstraintArgKind.NON_EMPTY, target = ConstraintArgTarget.VALUE)
+	val months: Array<Month>,
+
+	val negated: Boolean = false,
+	
+	@ConstraintMessage
+	val message: String = "",
+	
+	@ConstraintGroups
+	val groups: Array<KClass<*>> = [OnDefault::class]
+)

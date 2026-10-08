@@ -1,0 +1,85 @@
+[versions]
+# Kotlin / build tooling
+kotlin = "2.4.20"
+ksp = "2.3.12"
+vanniktech-maven-publish = "0.37.0"
+# Spring
+spring-boot = "4.1.1"
+spring-dependency-management = "1.1.7"
+# Other plugins
+graalvm-native = "1.1.14"
+jmh-plugin = "0.7.3"
+diffplug-spotless = "8.10.3"
+# Libraries
+jsoup = "1.23.2"
+libphonenumber = "9.0.40"
+springdoc = "3.1.1"
+jackson-annotations = "2.22"
+expressly = "6.0.0"
+# Test
+junit = "6.1.3"
+junit4 = "4.13.2"
+assertj = "3.27.7"
+kctfork = "0.14.0"
+# Published Validata (IntelliJ composite / mavenLocal; must match root gradle.properties version)
+validata = "1.0.0"
+
+[libraries]
+# BOMs
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+# Spring Boot / Spring (versions from spring-boot-dependencies unless noted)
+jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
+spring-boot-webmvc = { module = "org.springframework.boot:spring-boot-webmvc" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-web = { module = "org.springframework:spring-web" }
+spring-context = { module = "org.springframework:spring-context" }
+# Kotlin
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+# Jackson (annotations stay on 2.x; Boot 4HTTP uses Jackson 3 databind + kotlin module)
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
+jackson-databind = { module = "tools.jackson.core:jackson-databind" }
+# Optional constraint backends (compileOnly in core; runtime in samples)
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
+# OpenAPI
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+# KSP / compile-testing
+ksp-symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+kctfork-core = { module = "dev.zacsweers.kctfork:core", version.ref = "kctfork" }
+kctfork-ksp = { module = "dev.zacsweers.kctfork:ksp", version.ref = "kctfork" }
+# Bean Validation (benchmarks vs Hibernate Validator)
+hibernate-validator = { module = "org.hibernate.validator:hibernate-validator" }
+expressly = { module = "org.glassfish.expressly:expressly", version.ref = "expressly" }
+# Validata (published coordinates — mavenLocal / Packages; keep version.ref in sync with gradle.properties)
+validata-schema = { module = "io.github.ghaylansaada:validata-schema", version.ref = "validata" }
+validata-core = { module = "io.github.ghaylansaada:validata-core", version.ref = "validata" }
+validata-processor = { module = "io.github.ghaylansaada:validata-processor", version.ref = "validata" }
+validata = { module = "io.github.ghaylansaada:validata", version.ref = "validata" }
+validata-openapi = { module = "io.github.ghaylansaada:validata-openapi", version.ref = "validata" }
+# Test
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+[plugins]
+# Kotlin / build tooling
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
+# Spring
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+# Other plugins
+graalvm-native = { id = "org.graalvm.buildtools.native", version.ref = "graalvm-native" }
+jmh = { id = "me.champeau.jmh", version.ref = "jmh-plugin" }
+diffplug-spotless = { id = "com.diffplug.spotless", version.ref = "diffplug-spotless" }
